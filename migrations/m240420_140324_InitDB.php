@@ -13,10 +13,10 @@ class m240420_140324_InitDB extends Migration
             'surname' => $this->string()->notNull(),
             'phone' => $this->string()->notNull()->unique(),
             'birthday' => $this->date(),
-            'sale_card_id' => $this->integer(),
         ]);
         $this->createTable('sale_card', [
             'id' => $this->primaryKey(),
+            'user_id' => $this->integer(),
             'number' => $this->string()->notNull(),
             'balance' => $this->integer()->notNull()->defaultValue(0),
             'date' => $this->date(),
@@ -24,9 +24,9 @@ class m240420_140324_InitDB extends Migration
         $this->addForeignKey(
             'sale_to_user_fk',
             'sale_card',
-            'id',
+            'user_id',
             'users',
-            'sale_card_id',
+            'id',
             'CASCADE',
             'CASCADE'
         );
