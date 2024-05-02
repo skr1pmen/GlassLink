@@ -2,11 +2,12 @@
 
 namespace app\controllers;
 
+use app\entity\Users;
+use app\models\RegistrationModel;
 use app\repository\SaleCardRepository;
 use app\repository\UserRepository;
-use yii\web\Controller;
 use Yii;
-use app\entity\Users;
+use yii\web\Controller;
 
 class UserController extends Controller
 {
