@@ -37,7 +37,7 @@ class UserController extends Controller
         return $this->goHome();
     }
 
-    public function actionAuthorisation()
+    public function actionAuthorization()
     {
         $this->view->title = "Страница авторизации";
 
@@ -49,6 +49,6 @@ class UserController extends Controller
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
             return $this->goHome();
         }
-        return $this->render('authorisation', ['model' => $model]);
+        return $this->render('authorization', ['model' => $model]);
     }
 }
