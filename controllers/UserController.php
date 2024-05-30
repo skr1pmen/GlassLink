@@ -5,13 +5,39 @@ namespace app\controllers;
 use app\entity\Users;
 use app\models\AuthForm;
 use app\models\RegistrationModel;
+use app\repository\OrderRepository;
 use app\repository\SaleCardRepository;
 use app\repository\UserRepository;
 use Yii;
+use yii\filters\AccessControl;
+use yii\filters\VerbFilter;
 use yii\web\Controller;
 
 class UserController extends Controller
 {
+    public function behaviors()
+    {
+        return [
+            'access' => [
+                'class' => AccessControl::class,
+                'only' => ['logout'],
+                'rules' => [
+                    [
+                        'actions' => ['logout'],
+                        'allow' => true,
+                        'roles' => ['@'],
+                    ],
+                ],
+            ],
+            'verbs' => [
+                'class' => VerbFilter::class,
+                'actions' => [
+                    'logout' => ['post'],
+                ],
+            ],
+        ];
+    }
+
     public function actionRegistration()
     {
         $this->view->title = 'Страница регистрации';
@@ -50,5 +76,13 @@ class UserController extends Controller
             return $this->goHome();
         }
         return $this->render('authorization', ['model' => $model]);
+    }
+    /** Контрольная точка (18:45 25.05.2024)
+     * TO DO: Вывод текущего заказа пользователя (текущей корзины пользователя)
+     */
+    public function actionOrder(){
+        $user_id = Yii::$app->user->id;
+        $order = OrderRepository::getOrder(['user_id' => $user_id, 'finally_price' => null]);
+
     }
 }

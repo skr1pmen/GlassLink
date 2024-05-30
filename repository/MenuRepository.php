@@ -18,4 +18,12 @@ class MenuRepository
         $menu->save();
         return $menu->id;
     }
+
+    public static function getMenu($where = [], $orderBy = null){
+        return Menu::find()->where($where)->orderBy($orderBy)->all();
+    }
+
+    public static function getOneFromMenu($where = []){
+        return Menu::find()->where($where)->one();
+    }
 }

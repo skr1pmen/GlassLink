@@ -5,6 +5,8 @@ $db = require __DIR__ . '/db.php';
 
 $config = [
     'id' => 'basic',
+    'language' => 'ru_RU',
+    'defaultRoute' => 'menu',
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
     'aliases' => [
@@ -22,9 +24,10 @@ $config = [
         'user' => [
             'identityClass' => 'app\entity\Users',
             'enableAutoLogin' => true,
+            'loginUrl' => '/user/authorization'
         ],
         'errorHandler' => [
-            'errorAction' => 'site/error',
+            'errorAction' => 'menu/error',
         ],
         'mailer' => [
             'class' => \yii\symfonymailer\Mailer::class,
@@ -46,7 +49,6 @@ $config = [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
-                '/' => 'menu/index'
             ],
         ],
         'authManager' => [

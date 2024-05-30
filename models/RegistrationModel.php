@@ -17,7 +17,8 @@ class RegistrationModel extends Model
             [['phone', 'password', 'passwordRepeat'], 'required'],
             ['phone', 'validatePhone'],
             ['passwordRepeat', 'compare', 'compareAttribute' => 'password'],
-            ['password', 'string', 'length' => [8, 12]]
+            ['password', 'string', 'length' => [8, 12]],
+            ['phone', 'string', 'length' => [11, 12]]
         ];
     }
 

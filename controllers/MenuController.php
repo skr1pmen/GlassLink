@@ -17,10 +17,10 @@ class MenuController extends Controller
         return [
             'access' => [
                 'class' => AccessControl::class,
-                'only' => ['create'],
+                'only' => ['create-menu'],
                 'rules' => [
                     [
-                        'actions' => ['create'],
+                        'actions' => ['create-menu'],
                         'allow' => true,
                         'roles' => ['admin']
                     ],
@@ -29,9 +29,24 @@ class MenuController extends Controller
         ];
     }
 
+    public function actions()
+    {
+        return [
+            'error' => [
+                'class' => 'yii\web\ErrorAction',
+            ],
+        ];
+    }
+
     public function actionIndex()
     {
-        return $this->render('index');
+        $menu = MenuRepository::getMenu();
+        return $this->render('index', ['menu' => $menu]);
+    }
+
+    public function actionCard(int $id){
+        $food = MenuRepository::getOneFromMenu(['id' => $id]);
+        return $this->render('card', ['food' => $food]);
     }
 
     public function actionCreateMenu()
@@ -70,4 +85,6 @@ class MenuController extends Controller
         }
         return $this->render('create-category', ['model' => $model]);
     }
+
+
 }
